@@ -1,0 +1,15 @@
+{
+  "network": "mainnet",
+  "deployer": "SPSHVWJVD3NP8G7ZM82KTHB91HKCMNTY3BKKNE5V",
+  "timestamp": "2025-12-16T21:55:01.576Z",
+  "contracts": {
+    "certifi-institutions": {
+      "txid": "26122428548c21319527ed3114ecefa0afdbff0e55737c7f97ad83e453a94806",
+      "address": "SPSHVWJVD3NP8G7ZM82KTHB91HKCMNTY3BKKNE5V.certifi-institutions"
+    },
+    "certifi-credentials": {
+      "txid": "1293646f06d20334c4387f8aad64b75bb0097a7e0a8d5fa9f24fcbac72b0a8b7",
+      "address": "SPSHVWJVD3NP8G7ZM82KTHB91HKCMNTY3BKKNE5V.certifi-credentials"
+    }
+  }
+}
