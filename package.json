@@ -8,7 +8,10 @@
     "test:run": "vitest --run",
     "test:report": "vitest --run --reporter=verbose",
     "deploy": "node scripts/deploy.js",
-    "interact": "node scripts/interact.js"
+    "interact": "node scripts/interact.js",
+    "mainnet-interact": "node scripts/mainnet-interact.js",
+    "write": "node scripts/write-functions.js",
+    "addresses": "node scripts/generate-test-addresses.js"
   },
   "keywords": [
     "stacks",
