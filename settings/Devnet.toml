@@ -1,0 +1,26 @@
+[network]
+name = "devnet"
+stacks_node = "http://localhost:20443"
+bitcoin_node = "http://localhost:18443"
+deployment_fee_rate = 1
+pox_enabled = false
+
+[accounts.deployer]
+mnemonic = "twice kind fence tip hidden tilt action fragile skin nothing glory cousin green tomorrow spring wrist shed math olympic multiply hip blue scout claw"
+balance = 100000000000000
+address = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM"
+
+[accounts.wallet_1]
+mnemonic = "sell invite acquire kitten bamboo drastic magazine vivid right play relaxed ramp want leader exotic catch excite deny reject require face reunion slow climb"
+balance = 100000000000000
+address = "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5"
+
+[accounts.wallet_2]
+mnemonic = "hold excess usual excess ring elephant install account glad dry hard use rest average bid pitch dry eye purchase base focus peak bargain purchase"
+balance = 100000000000000
+address = "ST2CY5V39NHDPWSXMW3Q3BS6QG2ZG7E76WXKJ3K3G"
+
+[accounts.wallet_3]
+mnemonic = "cycle puppy glare enroll cost improve round trend wrist mushroom script important mix lift try photo issue inside look puppy task safe note unlock"
+balance = 100000000000000
+address = "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZBKHRF9WX3"
