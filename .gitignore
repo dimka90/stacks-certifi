@@ -9,3 +9,4 @@ dist/
 .clarinet/
 coverage/
 .nyc_output/
+.vscode/

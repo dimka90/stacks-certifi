@@ -1,25 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useConnect } from '@stacks/connect-react';
 import Dashboard from './components/Dashboard';
 import IssueCredential from './components/IssueCredential';
 import VerifyCredential from './components/VerifyCredential';
 import Statistics from './components/Statistics';
-import ConnectEvmButton from './components/ConnectEvmButton';
-import ConnectStacksButton from './components/ConnectStacksButton';
+import WalletConnect from './components/WalletConnect';
 import './App.css';
 
 function App() {
-  const { isAuthenticated, userData } = useConnect();
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [stacksAddress, setStacksAddress] = useState<string>('');
+  const [userAddress, setUserAddress] = useState<string>('');
+  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated && userData?.profile?.stxAddress) {
-      setStacksAddress(userData.profile.stxAddress.testnet || userData.profile.stxAddress.mainnet || '');
-    } else {
-      setStacksAddress('');
+    // Check if wallet is connected from localStorage
+    const savedAddress = localStorage.getItem('userAddress');
+    if (savedAddress) {
+      setUserAddress(savedAddress);
+      setIsConnected(true);
     }
-  }, [isAuthenticated, userData]);
+  }, []);
+
+  const handleWalletConnect = (address: string) => {
+    setUserAddress(address);
+    setIsConnected(true);
+    localStorage.setItem('userAddress', address);
+  };
+
+  const handleDisconnect = () => {
+    setUserAddress('');
+    setIsConnected(false);
+    localStorage.removeItem('userAddress');
+  };
 
   return (
     <div className="app">
@@ -28,9 +39,15 @@ function App() {
           <h1>🎓 Certifi</h1>
           <p>Blockchain-Powered Credential Verification</p>
         </div>
-        <div className="header-status" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <ConnectStacksButton />
-          <ConnectEvmButton />
+        <div className="header-status">
+          {isConnected ? (
+            <div className="user-info">
+              <span className="address">{userAddress.slice(0, 10)}...</span>
+              <span className="status">✅ Connected</span>
+            </div>
+          ) : (
+            <span className="status">⚠️ Not Connected</span>
+          )}
         </div>
       </header>
 
@@ -62,12 +79,16 @@ function App() {
       </nav>
 
       <main className="main">
-        <>
-          {activeTab === 'dashboard' && <Dashboard userAddress={stacksAddress} />}
-          {activeTab === 'issue' && <IssueCredential userAddress={stacksAddress} />}
-          {activeTab === 'verify' && <VerifyCredential />}
-          {activeTab === 'stats' && <Statistics />}
-        </>
+        {!isConnected ? (
+          <WalletConnect onConnect={handleWalletConnect} />
+        ) : (
+          <>
+            {activeTab === 'dashboard' && <Dashboard userAddress={userAddress} />}
+            {activeTab === 'issue' && <IssueCredential userAddress={userAddress} />}
+            {activeTab === 'verify' && <VerifyCredential />}
+            {activeTab === 'stats' && <Statistics />}
+          </>
+        )}
       </main>
 
       <footer className="footer">
