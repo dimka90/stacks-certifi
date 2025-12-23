@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import IssueCredential from './components/IssueCredential';
 import VerifyCredential from './components/VerifyCredential';
 import Statistics from './components/Statistics';
+import ConnectEvmButton from './components/ConnectEvmButton';
 import './App.css';
 
 function App() {
@@ -25,14 +26,19 @@ function App() {
           <p>Blockchain-Powered Credential Verification</p>
         </div>
         <div className="header-status">
-          {isUserSignedIn ? (
-            <div className="user-info">
-              <span className="address">{userAddress.slice(0, 10)}...</span>
-              <span className="status">✅ Connected</span>
-            </div>
-          ) : (
-            <span className="status">⚠️ Not Connected</span>
-          )}
+          <div className="stacks-status">
+            {isUserSignedIn ? (
+              <div className="user-info">
+                <span className="address">{userAddress.slice(0, 10)}...</span>
+                <span className="status">✅ Stacks Connected</span>
+              </div>
+            ) : (
+              <span className="status">⚠️ Stacks Not Connected</span>
+            )}
+          </div>
+          <div className="evm-status">
+            <ConnectEvmButton />
+          </div>
         </div>
       </header>
 
