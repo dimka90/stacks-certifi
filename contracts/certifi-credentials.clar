@@ -84,7 +84,12 @@
     ;; Validation
     (asserts! (> (len credential-type) u0) ERR-INVALID-CREDENTIAL)
     (asserts! (> (len credential-hash) u0) ERR-INVALID-HASH)
-    (is-none (map-get? credential-by-hash { credential-hash: credential-hash }) ERR-CREDENTIAL-EXISTS)
+    (asserts! (is-none (map-get? credential-by-hash { credential-hash: credential-hash })) ERR-CREDENTIAL-EXISTS)
+    
+    ;; Check institution verification
+    (let ((is-verified (unwrap! (contract-call? .certifi-institutions is-institution-verified institution-id) false)))
+      (asserts! is-verified ERR-INSTITUTION-NOT-VERIFIED)
+    )
 
     ;; Create credential
     (map-insert credentials
@@ -124,6 +129,12 @@
   (let ((credential (unwrap! (map-get? credentials { credential-id: credential-id }) ERR-CREDENTIAL-NOT-FOUND)))
     ;; Validation
     (asserts! (is-eq (get status credential) STATUS-ACTIVE) ERR-VERIFICATION-FAILED)
+    
+    ;; Check expiry date if set
+    (match (get expiry-date credential)
+      expiry (asserts! (>= expiry burn-block-height) ERR-VERIFICATION-FAILED)
+      true
+    )
 
     ;; Log verification
     (map-set verification-log
@@ -197,7 +208,13 @@
 ;; Check if credential is valid
 (define-read-only (is-credential-valid (credential-id uint))
   (match (map-get? credentials { credential-id: credential-id })
-    credential (is-eq (get status credential) STATUS-ACTIVE)
+    credential (and
+      (is-eq (get status credential) STATUS-ACTIVE)
+      (match (get expiry-date credential)
+        expiry (>= expiry burn-block-height)
+        true
+      )
+    )
     false
   )
 )
