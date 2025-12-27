@@ -16,6 +16,16 @@ path = 'contracts/certifi-institutions.clar'
 clarity_version = 2
 epoch = 'latest'
 
+[contracts.sip009-nft-trait]
+path = 'contracts/sip009-nft-trait.clar'
+clarity_version = 2
+epoch = 'latest'
+
+[contracts.certifi-nft]
+path = 'contracts/certifi-nft.clar'
+clarity_version = 2
+epoch = 'latest'
+
 [repl.analysis]
 passes = ['check_checker']
 
